@@ -1,14 +1,7 @@
-// ✅ Contract details
-const contractAddress = "0xfE44C4AceEC49c31c44894733662E47E521904F0";
+// ==== CONTRACT CONFIG ====
+const CONTRACT_ADDRESS = "0xf8e81D47203A594245E36C48e151709F0C19fBe8";
 
-const contractABI = [
-  {
-    "inputs": [],
-    "name": "deposit",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
+const CONTRACT_ABI = [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -33,13 +26,6 @@ const contractABI = [
     "type": "event"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "_student", "type": "address" }],
-    "name": "manualRelease",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       { "indexed": true, "internalType": "address", "name": "student", "type": "address" },
@@ -47,13 +33,6 @@ const contractABI = [
     ],
     "name": "ScholarshipReleased",
     "type": "event"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }],
-    "name": "setScholarshipAmount",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -64,6 +43,98 @@ const contractABI = [
     ],
     "name": "StudentRegistered",
     "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "MIN_ATTENDANCE",
+    "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MIN_MARKS",
+    "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "admin",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "deposit",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getBalance",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_student", "type": "address" }],
+    "name": "getStudent",
+    "outputs": [
+      { "internalType": "uint8", "name": "marks", "type": "uint8" },
+      { "internalType": "uint8", "name": "attendance", "type": "uint8" },
+      { "internalType": "bool", "name": "eligible", "type": "bool" },
+      { "internalType": "bool", "name": "received", "type": "bool" },
+      { "internalType": "uint256", "name": "appliedAt", "type": "uint256" },
+      { "internalType": "uint256", "name": "releasedAt", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalStudents",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_student", "type": "address" }],
+    "name": "manualRelease",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "scholarshipAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "studentList",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "students",
+    "outputs": [
+      { "internalType": "address", "name": "walletAddress", "type": "address" },
+      { "internalType": "uint8", "name": "marks", "type": "uint8" },
+      { "internalType": "uint8", "name": "attendance", "type": "uint8" },
+      { "internalType": "bool", "name": "isEligible", "type": "bool" },
+      { "internalType": "bool", "name": "hasReceived", "type": "bool" },
+      { "internalType": "uint256", "name": "appliedAt", "type": "uint256" },
+      { "internalType": "uint256", "name": "releasedAt", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [
@@ -89,442 +160,188 @@ const contractABI = [
     "stateMutability": "nonpayable",
     "type": "function"
   },
-  { "stateMutability": "payable", "type": "receive" },
   {
-    "inputs": [],
-    "name": "admin",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getBalance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "_student", "type": "address" }],
-    "name": "getStudent",
-    "outputs": [
-      { "internalType": "uint8", "name": "marks", "type": "uint8" },
-      { "internalType": "uint8", "name": "attendance", "type": "uint8" },
-      { "internalType": "bool", "name": "eligible", "type": "bool" },
-      { "internalType": "bool", "name": "received", "type": "bool" },
-      { "internalType": "uint256", "name": "appliedAt", "type": "uint256" },
-      { "internalType": "uint256", "name": "releasedAt", "type": "uint256" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
+    "stateMutability": "payable",
+    "type": "receive"
   }
 ];
 
-let account;
+// ==== GLOBALS ====
+let provider;
+let signer;
+let contract;
+let currentAccount = null;
 
-// ------------------------------
-// ✅ Connect Wallet
-// ------------------------------
+// 🎯 eligibility thresholds (will be updated from contract if possible)
+let MIN_MARKS_REQ = 85;
+let MIN_ATTENDANCE_REQ = 75;
+
+// ==== DOM ELEMENTS ====
+const walletDiv      = document.getElementById("wallet");
+const marksInput     = document.getElementById("marks");
+const attendanceInput= document.getElementById("attendance");
+const submitBtn      = document.getElementById("submitBtn");
+const statusBox      = document.getElementById("status");
+const progressFill   = document.getElementById("progressFill");
+
+// ==== HELPER: Update status message ====
+function setStatus(message, type = "info") {
+  statusBox.textContent = message;
+  statusBox.classList.remove("error", "success", "info");
+  statusBox.classList.add(type);
+}
+
+// ==== HELPER: Update progress bar ====
+function updateProgress() {
+  const marks = Number(marksInput.value) || 0;
+  const attendance = Number(attendanceInput.value) || 0;
+
+  // Simple average of marks & attendance
+  let progress = (marks + attendance) / 2;
+  if (progress > 100) progress = 100;
+  if (progress < 0) progress = 0;
+
+  progressFill.style.width = progress + "%";
+}
+
+// Attach input listeners to update progress bar
+marksInput?.addEventListener("input", updateProgress);
+attendanceInput?.addEventListener("input", updateProgress);
+
+// ==== CONNECT WALLET (called from HTML button) ====
 async function connectWallet() {
-  if (!window.ethereum) return alert("MetaMask not installed");
+  if (typeof window.ethereum === "undefined") {
+    alert("MetaMask not detected. Please install it.");
+    return;
+  }
 
   try {
+    // 1. Ask MetaMask for accounts
     const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
+      method: "eth_requestAccounts"
     });
 
-    account = accounts[0];
-    document.getElementById("wallet").innerText = "Connected: " + account;
+    if (!accounts || accounts.length === 0) {
+      setStatus("No account selected in MetaMask.", "error");
+      return;
+    }
+
+    currentAccount = accounts[0];
+    walletDiv.textContent = `Connected: ${currentAccount}`;
+
+    // 2. Create ethers provider & signer (v5 syntax)
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    signer   = provider.getSigner();
+
+    // 3. Create contract instance
+    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+    // 4. Optional: Check network
+    const network = await provider.getNetwork();
+    console.log("Network:", network);
+
+    if (network.chainId !== 114) {
+      setStatus(`Warning: Connected to chainId ${network.chainId}. Switch to Coston2 (114) if needed.`, "info");
+    } else {
+      setStatus("Wallet connected on the correct network. You can submit your application now.", "success");
+    }
+
+    // ⭐ 5. Read eligibility criteria from contract (if set there)
+    try {
+      const minMarksBN = await contract.MIN_MARKS();
+      const minAttendanceBN = await contract.MIN_ATTENDANCE();
+      MIN_MARKS_REQ = minMarksBN.toNumber();
+      MIN_ATTENDANCE_REQ = minAttendanceBN.toNumber();
+      console.log("Min criteria from contract:", MIN_MARKS_REQ, MIN_ATTENDANCE_REQ);
+      setStatus(
+        `Wallet connected. Min criteria → Marks ≥ ${MIN_MARKS_REQ}, Attendance ≥ ${MIN_ATTENDANCE_REQ}.`,
+        "success"
+      );
+    } catch (innerErr) {
+      console.warn("Could not read MIN_* from contract, falling back to defaults.", innerErr);
+    }
+
+    // 6. Enable form inputs & button
+    marksInput.disabled = false;
+    attendanceInput.disabled = false;
+    submitBtn.disabled = false;
+
   } catch (err) {
-    console.error(err);
-    alert("Wallet connection failed.");
+    console.error("connectWallet error:", err);
+    setStatus("Failed to connect wallet. Check console for details.", "error");
   }
 }
 
-// ------------------------------
-// ✅ Submit Application to Blockchain
-// ------------------------------
-async function releaseScholarship() {
-  const marksInput = document.getElementById("marks");
-  const attendanceInput = document.getElementById("attendance");
-  const statusEl = document.getElementById("status");
+// ==== SUBMIT APPLICATION (called from HTML button) ====
+async function submitApplication() {
+  if (!contract || !signer || !currentAccount) {
+    setStatus("Connect your wallet first.", "error");
+    return;
+  }
 
-  let marks = Number(marksInput.value);
-  let attendance = Number(attendanceInput.value);
+  const marks = Number(marksInput.value);
+  const attendance = Number(attendanceInput.value);
 
-  if (!account) return (statusEl.innerText = "❌ Connect wallet first.");
-  if (!marksInput.value || !attendanceInput.value)
-    return (statusEl.innerText = "❌ Fill both values.");
   if (
-    isNaN(marks) ||
-    isNaN(attendance) ||
-    marks < 0 ||
-    marks > 100 ||
-    attendance < 0 ||
-    attendance > 100
-  )
-    return (statusEl.innerText = "❌ Values must be 0–100.");
+    isNaN(marks) || isNaN(attendance) ||
+    marks < 0 || marks > 100 ||
+    attendance < 0 || attendance > 100
+  ) {
+    setStatus("Please enter valid marks and attendance (0–100).", "error");
+    return;
+  }
+
+  // ⭐ FRONTEND ELIGIBILITY CHECK (no transaction if not eligible)
+  if (marks < MIN_MARKS_REQ || attendance < MIN_ATTENDANCE_REQ) {
+    setStatus(
+      `You are not eligible. Need at least Marks ≥ ${MIN_MARKS_REQ} and Attendance ≥ ${MIN_ATTENDANCE_REQ}.`,
+      "error"
+    );
+    return; // ❌ do NOT send the transaction
+  }
 
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    setStatus("Sending transaction to submit your application...", "info");
+    submitBtn.disabled = true;
 
-    statusEl.innerText = "⏳ Sending transaction...";
-
-    // ⭐ Calls your smart contract
     const tx = await contract.submitApplication(marks, attendance);
+    console.log("TX sent:", tx.hash);
+    setStatus(`Transaction sent: ${tx.hash} \nWaiting for confirmation...`, "info");
 
-    statusEl.innerText = "⏳ Waiting for confirmation...";
+    const receipt = await tx.wait();
+    console.log("TX confirmed:", receipt);
 
-    await tx.wait();
-
-    statusEl.innerText = "✅ Application submitted on-chain!";
+    setStatus(`Application submitted successfully! ✅\nBlock: ${receipt.blockNumber}`, "success");
   } catch (err) {
-    console.error(err);
-    statusEl.innerText = "❌ Transaction failed.";
+    console.error("submitApplication error:", err);
+    setStatus("Error submitting application: " + (err?.message || err), "error");
+  } finally {
+    submitBtn.disabled = false;
   }
 }
-// Contract Configuration
-    const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS_HERE"; // Replace after deployment
-    const CONTRACT_ABI = [
-      "function submitApplication(uint8 _marks, uint8 _attendance) external",
-      "function getStudent(address _student) external view returns (uint8 marks, uint8 attendance, bool eligible, bool received, uint256 appliedAt, uint256 releasedAt)",
-      "function scholarshipAmount() external view returns (uint256)",
-      "function getBalance() external view returns (uint256)",
-      "event StudentRegistered(address indexed student, uint8 marks, uint8 attendance)",
-      "event ScholarshipReleased(address indexed student, uint256 amount)"
-    ];
 
-    let provider;
-    let signer;
-    let contract;
-    let userAddress;
-
-    // Connect Wallet
-    async function connectWallet() {
-      try {
-        if (typeof window.ethereum === 'undefined') {
-          showStatus('Please install MetaMask!', 'error');
-          return;
-        }
-
-        showStatus('Connecting to MetaMask...', 'info');
-        
-        // Request account access
-        const accounts = await window.ethereum.request({ 
-          method: 'eth_requestAccounts' 
-        });
-        
-        userAddress = accounts[0];
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        signer = provider.getSigner();
-        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-
-        // Update UI
-        document.getElementById('wallet').innerHTML = `
-          <strong>✅ Connected:</strong> ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}
-        `;
-        document.getElementById('wallet').classList.add('wallet-connected');
-        document.getElementById('connectBtn').textContent = '✅ Wallet Connected';
-        document.getElementById('connectBtn').disabled = true;
-        
-        // Enable inputs
-        document.getElementById('marks').disabled = false;
-        document.getElementById('attendance').disabled = false;
-        document.getElementById('submitBtn').disabled = false;
-
-        showStatus('Wallet connected successfully!', 'success');
-        
-        // Check if user already applied
-        await checkExistingApplication();
-
-      } catch (error) {
-        console.error(error);
-        showStatus('Failed to connect wallet: ' + error.message, 'error');
-      }
+// ==== HANDLE ACCOUNT / NETWORK CHANGES ====
+if (typeof window.ethereum !== "undefined") {
+  window.ethereum.on("accountsChanged", (accounts) => {
+    if (!accounts || accounts.length === 0) {
+      currentAccount = null;
+      walletDiv.textContent = "Wallet Not Connected";
+      marksInput.disabled = true;
+      attendanceInput.disabled = true;
+      submitBtn.disabled = true;
+      setStatus("MetaMask account disconnected.", "info");
+    } else {
+      currentAccount = accounts[0];
+      walletDiv.textContent = `Connected: ${currentAccount}`;
+      marksInput.disabled = false;
+      attendanceInput.disabled = false;
+      submitBtn.disabled = false;
+      setStatus("Account switched in MetaMask.", "info");
     }
+  });
 
-    // Check if user already applied
-    async function checkExistingApplication() {
-      try {
-        const studentData = await contract.getStudent(userAddress);
-        if (studentData.marks > 0) {
-          showStatus('You have already submitted an application!', 'warning');
-          document.getElementById('marks').value = studentData.marks;
-          document.getElementById('attendance').value = studentData.attendance;
-          document.getElementById('marks').disabled = true;
-          document.getElementById('attendance').disabled = true;
-          document.getElementById('submitBtn').disabled = true;
-          
-          if (studentData.received) {
-            showStatus('🎉 Scholarship already released to your wallet!', 'success');
-          } else if (studentData.eligible) {
-            showStatus('You are eligible! Processing scholarship...', 'info');
-          } else {
-            showStatus('Application submitted. Not eligible for scholarship.', 'warning');
-          }
-        }
-      } catch (error) {
-        console.error('Error checking application:', error);
-      }
-    }
-
-    // Submit Application
-    async function submitApplication() {
-      const marks = parseInt(document.getElementById('marks').value);
-      const attendance = parseInt(document.getElementById('attendance').value);
-
-      // Validation
-      if (isNaN(marks) || marks < 0 || marks > 100) {
-        showStatus('Please enter valid marks (0-100)', 'error');
-        return;
-      }
-
-      if (isNaN(attendance) || attendance < 0 || attendance > 100) {
-        showStatus('Please enter valid attendance (0-100)', 'error');
-        return;
-      }
-
-      try {
-        showStatus('Submitting your application... Please confirm in MetaMask', 'info');
-        document.getElementById('submitBtn').innerHTML = '<span class="loading"></span> Processing...';
-        document.getElementById('submitBtn').disabled = true;
-
-        // Submit transaction
-        const tx = await contract.submitApplication(marks, attendance);
-        showStatus('Transaction submitted! Waiting for confirmation...', 'info');
-        
-        // Wait for transaction to be mined
-        const receipt = await tx.wait();
-        
-        // Check eligibility
-        if (marks >= 85 && attendance >= 75) {
-          showStatus('🎉 Congratulations! You are eligible! Scholarship will be released to your wallet.', 'success');
-        } else {
-          showStatus('Application submitted successfully. Unfortunately, you do not meet the eligibility criteria.', 'warning');
-        }
-
-        // Disable form
-        document.getElementById('marks').disabled = true;
-        document.getElementById('attendance').disabled = true;
-
-      } catch (error) {
-        console.error(error);
-        let errorMsg = 'Transaction failed: ';
-        
-        if (error.message.includes('Already applied')) {
-          errorMsg = 'You have already submitted an application!';
-        } else if (error.message.includes('user rejected')) {
-          errorMsg = 'Transaction was rejected by user';
-        } else {
-          errorMsg += error.message;
-        }
-        
-        showStatus(errorMsg, 'error');
-        document.getElementById('submitBtn').innerHTML = '🎓 Submit Application';
-        document.getElementById('submitBtn').disabled = false;
-      }
-    }
-
-    // Show status message
-    function showStatus(message, type) {
-      const statusDiv = document.getElementById('status');
-      statusDiv.textContent = message;
-      statusDiv.className = 'status-box show status-' + type;
-      
-      // Auto-hide info messages after 5 seconds
-      if (type === 'info') {
-        setTimeout(() => {
-          statusDiv.classList.remove('show');
-        }, 5000);
-      }
-    }
-
-    // Listen for account changes
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length === 0) {
-          location.reload();
-        } else {
-          location.reload();
-        }
-      });
-
-      window.ethereum.on('chainChanged', () => {
-        location.reload();
-      });
-    }// Contract Configuration
-    const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS_HERE";
-    const CONTRACT_ABI = [
-      "function submitApplication(uint8 _marks, uint8 _attendance) external",
-      "function getStudent(address _student) external view returns (uint8 marks, uint8 attendance, bool eligible, bool received, uint256 appliedAt, uint256 releasedAt)",
-      "function scholarshipAmount() external view returns (uint256)",
-      "function getBalance() external view returns (uint256)",
-      "event StudentRegistered(address indexed student, uint8 marks, uint8 attendance)",
-      "event ScholarshipReleased(address indexed student, uint256 amount)"
-    ];
-
-    let provider;
-    let signer;
-    let contract;
-    let userAddress;
-
-    // Connect Wallet
-    async function connectWallet() {
-      try {
-        if (typeof window.ethereum === 'undefined') {
-          showStatus('⚠️ Please install MetaMask to continue', 'error');
-          return;
-        }
-
-        showProgress(30);
-        showStatus('🔄 Connecting to MetaMask...', 'info');
-        
-        const accounts = await window.ethereum.request({ 
-          method: 'eth_requestAccounts' 
-        });
-        
-        showProgress(60);
-        userAddress = accounts[0];
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        signer = provider.getSigner();
-        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-
-        showProgress(100);
-
-        // Update UI
-        document.getElementById('wallet').innerHTML = `✅ Connected: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;
-        document.getElementById('wallet').classList.add('connected');
-        document.getElementById('connectBtn').innerHTML = '<span>✅ Wallet Connected</span>';
-        document.getElementById('connectBtn').disabled = true;
-        
-        // Enable inputs
-        document.getElementById('marks').disabled = false;
-        document.getElementById('attendance').disabled = false;
-        document.getElementById('submitBtn').disabled = false;
-
-        setTimeout(() => {
-          showStatus('🎉 Wallet connected successfully!', 'success');
-          hideProgress();
-        }, 500);
-        
-        await checkExistingApplication();
-
-      } catch (error) {
-        console.error(error);
-        hideProgress();
-        showStatus('❌ Failed to connect: ' + error.message, 'error');
-      }
-    }
-
-    // Check existing application
-    async function checkExistingApplication() {
-      try {
-        const studentData = await contract.getStudent(userAddress);
-        if (studentData.marks > 0) {
-          document.getElementById('marks').value = studentData.marks;
-          document.getElementById('attendance').value = studentData.attendance;
-          document.getElementById('marks').disabled = true;
-          document.getElementById('attendance').disabled = true;
-          document.getElementById('submitBtn').disabled = true;
-          
-          if (studentData.received) {
-            showStatus('🎉 Scholarship already released to your wallet!', 'success');
-          } else if (studentData.eligible) {
-            showStatus('✅ You are eligible! Processing scholarship...', 'success');
-          } else {
-            showStatus('📝 Application submitted. Not eligible for scholarship.', 'warning');
-          }
-        }
-      } catch (error) {
-        console.error('Error checking application:', error);
-      }
-    }
-
-    // Submit Application
-    async function submitApplication() {
-      const marks = parseInt(document.getElementById('marks').value);
-      const attendance = parseInt(document.getElementById('attendance').value);
-
-      if (isNaN(marks) || marks < 0 || marks > 100) {
-        showStatus('⚠️ Please enter valid marks (0-100)', 'error');
-        return;
-      }
-
-      if (isNaN(attendance) || attendance < 0 || attendance > 100) {
-        showStatus('⚠️ Please enter valid attendance (0-100)', 'error');
-        return;
-      }
-
-      try {
-        showProgress(20);
-        showStatus('📤 Submitting application... Please confirm in MetaMask', 'info');
-        document.getElementById('submitBtn').innerHTML = '<span><span class="loading-spinner"></span>Processing...</span>';
-        document.getElementById('submitBtn').disabled = true;
-
-        showProgress(40);
-        const tx = await contract.submitApplication(marks, attendance);
-        
-        showProgress(60);
-        showStatus('⏳ Transaction submitted! Waiting for confirmation...', 'info');
-        
-        const receipt = await tx.wait();
-        showProgress(100);
-        
-        setTimeout(() => {
-          if (marks >= 85 && attendance >= 75) {
-            showStatus('🎉 Congratulations! You are eligible! Scholarship released to your wallet.', 'success');
-          } else {
-            showStatus('📝 Application submitted. You do not meet the eligibility criteria.', 'warning');
-          }
-          hideProgress();
-        }, 500);
-
-        document.getElementById('marks').disabled = true;
-        document.getElementById('attendance').disabled = true;
-
-      } catch (error) {
-        console.error(error);
-        hideProgress();
-        let errorMsg = '❌ ';
-        
-        if (error.message.includes('Already applied')) {
-          errorMsg += 'You have already submitted an application!';
-        } else if (error.message.includes('user rejected')) {
-          errorMsg += 'Transaction was rejected';
-        } else {
-          errorMsg += 'Transaction failed: ' + error.message;
-        }
-        
-        showStatus(errorMsg, 'error');
-        document.getElementById('submitBtn').innerHTML = '<span>🎓 Submit Application</span>';
-        document.getElementById('submitBtn').disabled = false;
-      }
-    }
-
-    // Show status
-    function showStatus(message, type) {
-      const statusDiv = document.getElementById('status');
-      statusDiv.textContent = message;
-      statusDiv.className = 'status-box show status-' + type;
-    }
-
-    // Progress bar
-    function showProgress(percent) {
-      document.getElementById('progressBar').classList.add('show');
-      document.getElementById('progressFill').style.width = percent + '%';
-    }
-
-    function hideProgress() {
-      setTimeout(() => {
-        document.getElementById('progressBar').classList.remove('show');
-        document.getElementById('progressFill').style.width = '0%';
-      }, 500);
-    }
-
-    // Event listeners
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', () => location.reload());
-      window.ethereum.on('chainChanged', () => location.reload());
-    }
+  window.ethereum.on("chainChanged", (_chainId) => {
+    // Simple solution: reload to reset provider/contract
+    window.location.reload();
+  });
+}
